@@ -12,7 +12,8 @@
     "jsoncargo": "^0.0.1-alpha.22",
     "mitt": "^3.0.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-error-boundary": "^5.0.0"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.2.4",

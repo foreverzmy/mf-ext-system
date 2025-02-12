@@ -1,5 +1,5 @@
 import { EditorEventCenter } from '../events';
-import { DitoEditorAPI, EditorManagerConfig, ExtensionConfig } from '../types';
+import { EditorHostAPI, EditorManagerConfig, ExtensionConfig } from '../types';
 import { ExtensionManager } from './ExtensionManager';
 import { ViewManager } from './ViewManager';
 import { StorageManager } from './StorageManager';
@@ -24,7 +24,7 @@ export class EditorManager {
     return this.#extensionManager.status;
   }
 
-  get editorAPI(): DitoEditorAPI {
+  get editorAPI(): EditorHostAPI {
     return {
       extensions: this.#extensionManager,
       views: this.#viewManager,
@@ -33,7 +33,7 @@ export class EditorManager {
   }
 
   config = async ({ metadata, extensions }: EditorManagerConfig) => {
-    this.#storageManager.cache.setItem('metadata', metadata as Json);
+    this.#storageManager.cache.setItem('metadata', metadata as any);
     const exts = extensions.map(ext => ({
       ...ext,
       onload: async () => await ext.onload?.(this.editorAPI),

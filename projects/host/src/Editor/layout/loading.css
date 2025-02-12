@@ -1,0 +1,28 @@
+.loading {
+  .switch {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 16px;
+    width: 80px;
+    height: 20px;
+    padding: 4px;
+    background: rgba(0, 182, 178, 0.4);
+
+    &:before {
+      content: '';
+      position: absolute;
+      border-radius: 16px;
+      width: 20px;
+      height: 12px;
+      left: 0;
+      background: #00B6B2;
+      animation: push 1s infinite linear;
+    }
+  }
+}
+
+@keyframes push {
+  50% {
+    left: 56px;
+  }
+}

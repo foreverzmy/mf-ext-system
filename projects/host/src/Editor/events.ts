@@ -1,6 +1,6 @@
 import mitt from 'mitt';
 
-type Events = {
+export type Events = {
   EDITOR_INITED: void;
   EXTENSION_INIT_START: { uri: string; title: string };
   EXTENSION_INIT_DONE: { uri: string; title: string };

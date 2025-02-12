@@ -8,7 +8,7 @@ interface ViewCompProps {
   registerPropsChangeListener: (callback: (props: Record<string, any>) => void) => Disposable;
 }
 
-const ViewComp: FC<ViewCompProps> = memo(
+const ViewComp: FC<ViewCompProps> = memo<ViewCompProps>(
   ({ comp, initProps, registerPropsChangeListener }) => {
     const [props, setProps] = useState(initProps);
 

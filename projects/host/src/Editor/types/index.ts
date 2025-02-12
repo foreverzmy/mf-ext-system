@@ -42,7 +42,7 @@ export interface ExtensionConfig {
 }
 
 export type EditorManagerExtensionConfig = Omit<ExtensionConfig, 'onload'> & {
-  onload?: (api: DitoEditorAPI) => Promise<ExtensionModule>;
+  onload?: (api: EditorHostAPI) => Promise<ExtensionModule>;
 };
 
 export interface EditorManagerConfig {
@@ -98,13 +98,13 @@ export interface Extension<T = any> {
   deactivate?: () => void;
 }
 
-export interface DitoEditorAPI {
+export interface EditorHostAPI {
   extensions: ExtensionManager;
   views: ViewManager;
   storage: StorageManager;
 }
 
-export interface DitoEditorCommandAPI {
+export interface EditorCommandAPI {
   registerCommand: any;
 }
 
