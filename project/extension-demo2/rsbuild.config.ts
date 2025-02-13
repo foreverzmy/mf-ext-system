@@ -1,17 +1,17 @@
+import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 import Tailwind from '@tailwindcss/postcss';
-import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
 
 export default defineConfig({
   server: {
-    port: 3001,
+    port: 3002,
     open: false,
   },
   dev: {
-    assetPrefix: 'http://localhost:3001',
+    assetPrefix: 'http://localhost:3002',
     client: {
-      port: 3001,
+      port: 3002,
       host: 'localhost',
       protocol: 'ws',
     },
@@ -22,10 +22,10 @@ export default defineConfig({
     },
     rspack: (config, { appendPlugins }) => {
       // 需要设置一个唯一值不能和其他应用相等
-      config.output!.uniqueName = 'extension-demo1';
+      config.output!.uniqueName = 'extension-demo2';
       appendPlugins([
         new ModuleFederationPlugin({
-          name: 'extension_demo1',
+          name: 'extension_demo2',
           shareScope: 'editor',
           exposes: {
             '.': './src/index.ts',

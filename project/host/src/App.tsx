@@ -7,13 +7,27 @@ const exts: Array<Omit<ExtensionConfig, 'onload'> & { manifest: string; }> = [
   {
     name: 'extension-demo1',
     title: 'demo1',
-    manifest: `/extension-demo1/mf-manifest.json`,
+    manifest: `http://localhost:3001/mf-manifest.json`,
     contributes: {
       viewsContainers: {
         activitybar: [{
           id: 'demo1',
           title: 'Demo1',
           icon: '/icons/shiba.svg',
+          priority: 9999
+        }]
+      }
+    }
+  }, {
+    name: 'extension-demo2',
+    title: 'demo2',
+    manifest: `http://localhost:3002/mf-manifest.json`,
+    contributes: {
+      viewsContainers: {
+        activitybar: [{
+          id: 'demo2',
+          title: 'Demo2',
+          icon: '/icons/cowcat.svg',
           priority: 9999
         }]
       }
