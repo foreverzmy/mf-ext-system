@@ -32,12 +32,12 @@ export class ExtensionManager {
       }
     }
 
-    await this.activate();
+    await this.#activate();
   };
 
   getExtension = <T>(name: string) => this.#extensions.get(name) as ExtensionHost<T> | undefined;
 
-  private activate = async () => {
+  #activate = async () => {
     for (const uri of this.#extensionsOrder) {
       const ext = this.#extensions.get(uri);
       if (ext) {

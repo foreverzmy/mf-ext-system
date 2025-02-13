@@ -33,6 +33,10 @@ export class EditorManager {
   }
 
   config = async ({ metadata, extensions }: EditorManagerConfig) => {
+    if (!extensions.length) {
+      EditorEventCenter.emit('EXTENSION_LOAD_ERROR', { message: '没有可加载的插件' });
+      return;
+    }
     this.#storageManager.cache.setItem('metadata', metadata as any);
     const exts = extensions.map(ext => ({
       ...ext,

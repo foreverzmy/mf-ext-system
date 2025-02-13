@@ -9,32 +9,33 @@ export const SwitchLoading: FC = () => (
   </div>
 );
 
-
 export const EditorLoading: FC<PropsWithChildren> = ({ children }) => {
-  const [loading, setLoading] = useState(true);
+  const [loadStatue, setLoadStatus] = useState(0);
   const extensionLoaded = useRef(false);
-  const dataUpdated = useRef(false);
   const textRef = useRef<HTMLParagraphElement>(null);
   const editor = useEditor();
 
   useEffect(() => {
     if (editor.status === 'active') {
-      setLoading(false);
+      setLoadStatus(0);
     }
 
     const eventHandler = (event: keyof Events, params: any) => {
       if (event === 'DESTROY') {
-        setLoading(true);
+        setLoadStatus(0);
         extensionLoaded.current = false;
-        dataUpdated.current = false;
         return;
       }
 
-      if (extensionLoaded.current && dataUpdated.current) {
+      if (extensionLoaded.current) {
         return;
       }
 
       switch (event) {
+        case 'EXTENSION_LOAD_ERROR':
+          textRef.current && (textRef.current.innerText = `${params?.message}`);
+          setLoadStatus(2);
+          break;
         case 'EXTENSION_INIT_START':
           textRef.current && (textRef.current.innerText = `插件「${params?.title}」初始化中...`);
           break;
@@ -52,18 +53,14 @@ export const EditorLoading: FC<PropsWithChildren> = ({ children }) => {
           EditorEventCenter.off('*', eventHandler);
           break;
         case 'EDITOR_INITED':
-          textRef.current && (textRef.current.innerText = `等待数据同步中...`);
+          textRef.current && (textRef.current.innerText = `编辑器初始化完成🎉🎉🎉`);
           extensionLoaded.current = true;
-          break;
-        case 'DATA_UPDATED':
-          textRef.current && (textRef.current.innerText = `数据同步完成🎉🎉🎉`);
-          dataUpdated.current = true;
           break;
         default:
       }
 
-      if (extensionLoaded.current && dataUpdated.current) {
-        setLoading(false);
+      if (extensionLoaded.current) {
+        setLoadStatus(0);
       }
     }
 
@@ -74,14 +71,18 @@ export const EditorLoading: FC<PropsWithChildren> = ({ children }) => {
     };
   }, [editor]);
 
-  if (loading) {
+  if (loadStatue === 0 || loadStatue === 2) {
     return (
-      <div className="w-full h-full centered flex flex-col">
-        <div className="w-32 h-64 flex justify-center items-center">
-          <SwitchLoading />
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="w-32 h-fit flex justify-center items-center">
+          { 
+            loadStatue === 0 ? 
+              <SwitchLoading /> : 
+              <p className='text-5xl font-black w-10 h-18 border-3 border-red-400 text-red-400 rounded-full flex items-center justify-center'>!</p> 
+          }
         </div>
-        <div className="flex flex-col items-center h-40">
-          <p className="mt-20">编辑器初始化中...</p>
+        <div className="flex flex-col items-center mt-10">
+          <p className="mb-2">{ loadStatue === 0 ? '编辑器初始化中...' : '编辑器加载失败' }</p>
           <p ref={textRef} className="mt-2">
             加载插件中...
           </p>

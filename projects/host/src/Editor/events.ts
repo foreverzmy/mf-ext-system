@@ -2,6 +2,7 @@ import mitt from 'mitt';
 
 export type Events = {
   EDITOR_INITED: void;
+  EXTENSION_LOAD_ERROR: { message: string };
   EXTENSION_INIT_START: { uri: string; title: string };
   EXTENSION_INIT_DONE: { uri: string; title: string };
   EXTENSION_ACTIVATE_START: { uri: string; title: string };
