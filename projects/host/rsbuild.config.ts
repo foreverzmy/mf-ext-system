@@ -8,5 +8,14 @@ export default defineConfig({
       addPlugins(Tailwind);
     },
   },
+
+  server: {
+    proxy: {
+      '/extension-demo1': {
+        target: 'http://localhost:3001',
+        pathRewrite: { '^/extension-demo1': '' },
+      },
+    },
+  },
   plugins: [pluginReact()],
 });

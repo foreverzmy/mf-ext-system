@@ -7,7 +7,7 @@ const exts: Array<Omit<ExtensionConfig, 'onload'> & { manifest: string; }> = [
   {
     name: 'extension-demo1',
     title: 'demo1',
-    manifest: `/mf-manifest.json`,
+    manifest: `/extension-demo1/mf-manifest.json`,
   }
 ];
 
